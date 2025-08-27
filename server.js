@@ -11,7 +11,8 @@ connectDB();
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({ origin: "*" }));
+app.options("*", cors());
 
 readdirSync("./routers").map((c) => {
   console.log(c);
