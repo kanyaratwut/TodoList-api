@@ -11,7 +11,12 @@ connectDB();
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
+  credentials: true
+}));
+
 
 readdirSync("./routers").map((c) => {
   console.log(c);
