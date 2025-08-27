@@ -4,8 +4,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./db/connect");
 const { readdirSync } = require("fs");
-const path = require("path");
-const serverless = require("serverless-http");
 
 const app = express();
 
@@ -13,11 +11,11 @@ connectDB();
 
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: "*" }));
-app.options("*", cors());
+app.use(cors());
 
-readdirSync(path.join(__dirname, "routers")).map(file => {
-  app.use("/api", require("./routers/" + file));
+readdirSync("./routers").map((c) => {
+  console.log(c);
+  app.use("/api", require("./routers/" + c));
 });
 
-module.exports = serverless(app);
+app.listen(5000, () => console.log("Server running on port 5000"));
