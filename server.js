@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors"); 
+const morgan = require("morgan");
 const connectDB = require("./db/connect");
 const { readdirSync } = require("fs");
 
@@ -8,11 +10,8 @@ const app = express();
 connectDB();
 
 app.use(express.json());
-
-// app.get("/", (req, res) => {
-//   console.log("Route / ถูกเรียก"); // <-- ต้องอยู่ใน callback function
-//   res.send("Server running with MongoDB!");
-// });
+app.use(morgan("dev"));
+app.use(cors());
 
 readdirSync("./routers").map((c) => {
   console.log(c);
